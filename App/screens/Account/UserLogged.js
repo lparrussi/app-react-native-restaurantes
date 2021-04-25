@@ -32,7 +32,10 @@ const UserLogged = () => {
                             setLoadingText={setLoadingText}
                             />}
             
-            <AccountOptions/>
+            <AccountOptions 
+                userInfo={userInfo}
+                toastRef={toastRef}
+            />
 
 
             <Button 
