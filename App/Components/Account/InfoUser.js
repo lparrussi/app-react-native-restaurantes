@@ -69,14 +69,16 @@ const InfoUser = (props) => {
     return ( 
         <View style={styles.viewUserInfo}>
            <Avatar rounded
-           size="large"
+           size={120}
            showEditButton
            onEditPress={changeAvatar}
 
            source={photoURL ? { uri: photoURL} : defaultAvatar}
            containerStyle={styles.infoAvatar}
             />
-        <View>
+
+        
+        <View styles={styles.viewUserInfoDisplay}>
             <Text style={styles.displayName}>{displayName ? displayName : "Anonimo"}</Text>
             <Text style={styles.displayEmail}>{email ? email : "Social login"}</Text>
         </View>
@@ -88,22 +90,38 @@ export default InfoUser;
 
 const styles = StyleSheet.create({
     viewUserInfo:{
+        display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        flexDirection: "row",
+        flexDirection: "column",
         backgroundColor: "#f2f2f2",
-        paddingTop: 30,
+        paddingTop: 10,
         paddingBottom: 30,
+        
        
     },
 
+    viewUserInfoDisplay:{
+        display:"flex",
+        justifyContent:"center",
+        alignItems:"center"
+    },
+
     infoAvatar: {
-        marginRight: 20
+        marginRight: 20,
+        
     },
 
 
     displayName: {
+        fontSize: 25 ,
         fontWeight: "bold",
-        paddingBottom:1
+    },
+
+    displayEmail: {
+        display:"flex",
+        color:"#888888",
+        justifyContent:"center"
+        
     }
 })

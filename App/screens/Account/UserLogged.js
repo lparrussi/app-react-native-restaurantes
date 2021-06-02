@@ -1,5 +1,5 @@
 import React, { useState , useRef, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { Button } from 'react-native-elements';
 import Toast from 'react-native-easy-toast-types';
 import * as firebase from 'firebase';
@@ -14,6 +14,7 @@ const UserLogged = () => {
     const [userInfo, setUserInfo] = useState(null);
     const [loading, setLoading] = useState(false);
     const [loadingText, setLoadingText] = useState('');
+    const [realoadUserInfo, setRealoadUserInfo] = useState(false);
     const toastRef = useRef();
 
     useEffect(() => {
@@ -21,7 +22,12 @@ const UserLogged = () => {
           const user = await firebase.auth().currentUser;
           setUserInfo(user);
       })()
-    }, []);
+      setRealoadUserInfo(false);
+    }, [realoadUserInfo]);
+
+    const shadowStyle = {
+        shadowOpacity:1
+    }
 
     return ( 
         <View style={styles.viewUserInfo}>
@@ -31,15 +37,16 @@ const UserLogged = () => {
                             setLoading={setLoading}
                             setLoadingText={setLoadingText}
                             />}
-            
+            <Text style={styles.misDatos}>Mis datos</Text>
             <AccountOptions 
                 userInfo={userInfo}
                 toastRef={toastRef}
+                setRealoadUserInfo={setRealoadUserInfo}
             />
 
 
             <Button 
-                title="Cerrar sesión"
+                title="Como salir de las drogas"
                 buttonStyle={styles.btnCloseSession}
                 titleStyle={styles.btnCloseSessionText}
                 onPress={() => firebase.auth().signOut()}
@@ -60,22 +67,43 @@ const styles = StyleSheet.create({
     viewUserInfo:{
         minHeight: "100%",
         backgroundColor: "#f2f2f2",
-        padding:10
+        padding:20,
+        display: "flex",
+        flexDirection: "column"
+        
     },
 
     btnCloseSession: {
         marginTop: 30,
         borderRadius: 0,
         backgroundColor: "#fff",
-        borderTopWidth:1,
         borderTopColor:"#e3e3e3",
         borderBottomWidth:1,
         borderBottomColor:"#e3e3e3",
         paddingTop: 10,
-        paddingBottom: 10
+        paddingBottom: 10,
+        borderRadius:20,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+
+        elevation: 10,
+
     },
 
     btnCloseSessionText: {
         color: "#00a680"
+    },
+
+    misDatos:{
+        fontWeight:"bold",
+        fontSize: 20,
+        display:'flex',
+        alignItems:"flex-start",
+        paddingBottom:15,
     }
 })

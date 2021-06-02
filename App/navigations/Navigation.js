@@ -28,7 +28,7 @@ const Navigation = () => {
                 <Tab.Screen 
                     name="restaurants" 
                     component={RestaurantStack} 
-                    options={{ title:"Restaurantes"}}
+                    options={{ title:"Restaurantes" }}
                 />
                 <Tab.Screen 
                         name="top-restaurants" 
